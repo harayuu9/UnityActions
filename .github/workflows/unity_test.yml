@@ -17,12 +17,12 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_2020 }}
         with:
-          projectPath: RuntimeUnitTestToolkit
+          projectPath: ./
           unityVersion: 2020.1.5f1
           targetPlatform: StandaloneLinux64
           buildMethod: UnitTestBuilder.BuildUnitTest
           customParameters: /headless /ScriptBackend Mono2x
           versioning: None
       - name: Execute UnitTest
-        run: ./RuntimeUnitTestToolkit/bin/UnitTest/StandaloneLinux64_Mono2x/test
+        run: ./bin/UnitTest/StandaloneLinux64_Mono2x/test
 
