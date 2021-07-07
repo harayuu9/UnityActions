@@ -10,6 +10,11 @@ jobs:
     strategy:
       fail-fast: false
     steps:
+    
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
     - name: setup git
       shell: bash
       run: |
