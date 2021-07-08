@@ -13,6 +13,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
 
       # Cache
       - name: Cache
@@ -55,3 +57,19 @@ jobs:
           SLACK_CHANNEL: test
           SLACK_TITLE: Test Failure
           SLACK_COLOR: danger
+
+      - name: git setting
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "actions"
+
+      - name: merge pull request
+        uses: actions/github-script@0.4.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            })
